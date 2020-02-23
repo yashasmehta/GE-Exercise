@@ -43,4 +43,20 @@ public class BankTest {
         bank.withdrawFromAccount("004", 100.0f);
         assertEquals(0.0f, account.getBalance(), 0.01);
     }
+    
+    @Test
+    public void withdrawFromCheckingAccountFailedTest() {
+        Account account = new Account("004", "Checking", 200.0f);
+        bank.addAccount(account);
+        bank.withdrawFromAccount("004", 150.0f);
+        assertEquals(200.0f, account.getBalance(), 0.01);
+    }
+    
+    @Test
+    public void withdrawFromSavingsAccountFailedsTest() {
+        Account account = new Account("004", "Savings", 100.0f);
+        bank.addAccount(account);
+        bank.withdrawFromAccount("004", 150.0f);
+        assertEquals(100.0f, account.getBalance(), 0.01);
+    }
 }

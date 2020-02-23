@@ -274,4 +274,53 @@ public class WarehouseTest {
         assertEquals(0, item.getValue());
         assertEquals(-2, item.getSellBy());
     }
+    
+    /**
+     *  tests for ItemType=PERISHABLE
+     */
+    
+    @Test
+    public void perishableItemBeforeSellDateTest() {
+        Item item = new Item(PERISHABLE, 10, 15);
+        warehouse.addItem(item);
+        warehouse.updateItems();
+        assertEquals(8, item.getValue());
+        assertEquals(14, item.getSellBy());
+    }
+
+    @Test
+    public void perishableItemOnSellDateTest() {
+        Item item = new Item(PERISHABLE, 10, 0);
+        warehouse.addItem(item);
+        warehouse.updateItems();
+        assertEquals(6, item.getValue());
+        assertEquals(-1, item.getSellBy());
+    }
+
+    @Test
+    public void perishableItemAfterSellDateTest() {
+        Item item = new Item(NORMAL, 10, -1);
+        warehouse.addItem(item);
+        warehouse.updateItems();
+        assertEquals(8, item.getValue());
+        assertEquals(-2, item.getSellBy());
+    }
+
+    @Test
+    public void perishableItemNearZeroValue() {
+        Item item = new Item(NORMAL, 1, 10);
+        warehouse.addItem(item);
+        warehouse.updateItems();
+        assertEquals(0, item.getValue());
+        assertEquals(9, item.getSellBy());
+    }
+
+    @Test
+    public void perishableItemZeroValue() {
+        Item item = new Item(NORMAL, 0, 10);
+        warehouse.addItem(item);
+        warehouse.updateItems();
+        assertEquals(0, item.getValue());
+        assertEquals(9, item.getSellBy());
+    }
 }

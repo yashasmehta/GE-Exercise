@@ -9,7 +9,7 @@ public class ArrayQuadrantUtilTest {
 
     @Test
     public void getQuadrantValuesTest() {
-        char[][] data = {
+        Object[][] data = {
                 {'a', 'b', 'c', 'd'},
                 {'e', 'f', 'g', 'h'},
                 {'i', 'j', 'k', 'l'},
@@ -19,7 +19,39 @@ public class ArrayQuadrantUtilTest {
         ArrayQuadrantUtil util = new ArrayQuadrantUtil(data);
         Assume.assumeNotNull(util.getQuadrantValues(0, 0));
 
-        char[] expectedResult = {'a', 'b', 'e', 'f'};
+        Object[] expectedResult = {'a', 'b', 'e', 'f'};
         assertArrayEquals(expectedResult, util.getQuadrantValues(0, 0));
+    }
+    
+    @Test
+    public void getArrayRowTest() {
+        Object[][] data = {
+                {'a', 'b', 'c', 'd'},
+                {'e', 'f', 'g', 'h'},
+                {'i', 'j', 'k', 'l'},
+                {'m', 'n', 'o', 'p'}
+        };
+
+        ArrayQuadrantUtil util = new ArrayQuadrantUtil(data);
+        Assume.assumeNotNull(util.getArrayRow(1));
+
+        Object[] expectedResult = {'e', 'f', 'g', 'h'};
+        assertArrayEquals(expectedResult, util.getArrayRow(1));
+    }
+    
+    @Test
+    public void getArrayColumnnTest() {
+        Object[][] data = {
+                {'a', 'b', 'c', 'd'},
+                {'e', 'f', 'g', 'h'},
+                {'i', 'j', 'k', 'l'},
+                {'m', 'n', 'o', 'p'}
+        };
+
+        ArrayQuadrantUtil util = new ArrayQuadrantUtil(data);
+        Assume.assumeNotNull(util.getArrayColumn(1));
+
+        Object[] expectedResult = {'b', 'f', 'j', 'n'};
+        assertArrayEquals(expectedResult, util.getArrayColumn(1));
     }
 }

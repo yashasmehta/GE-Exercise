@@ -7,8 +7,8 @@ public class Account {
 
     private static final Logger logger = LogManager.getLogger(Account.class);
 
-    private static float monthlyInterestRate = 1.01f;
-    private static float monthlyFee = 0.0f;
+    private float monthlyInterestRate;
+    private float monthlyFee;
 
     private String accountNumber;
     private String accountType;
@@ -18,8 +18,14 @@ public class Account {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.balance = balance;
-        if (accountType == "Checking") {
-            monthlyInterestRate = 1.0f;
+        this.monthlyFee = 0.0f;
+        
+        if (accountType.equals("Checking")) {
+            monthlyInterestRate = 0.0f;
+        }
+        
+        if (accountType.equals("Savings")) {
+            monthlyInterestRate = 0.01f;
         }
     }
 
@@ -31,20 +37,20 @@ public class Account {
         new Account(accountNumber, "Savings", 0.0f);
     }
 
-    public float valueNextMonth() {
-        return (balance * monthlyInterestRate) - monthlyFee;
+    public double valueNextMonth() {
+        return ((balance * monthlyInterestRate) + balance) - monthlyFee;
     }
 
     @Override
     public String toString() {
-        if (accountType == "Checking") {
+        if (accountType.equals("Checking")) {
             if (monthlyFee == 0.0f) {
                 return "No fee checking account #" + accountNumber;
             } else {
                 return "Checking account #" + accountNumber;
             }
         } else {
-            if (monthlyInterestRate > 1.01) {
+            if (monthlyInterestRate > 0.01f) {
                 if (monthlyFee == 0.0f) {
                     return "High interest no fee savings account #" + accountNumber;
                 } else {
