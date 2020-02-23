@@ -15,7 +15,11 @@ public class Bank {
         accountMap = new HashMap<>();
     }
 
-    public Account getAccount(String accountNumber) {
+    public Map<String, Account> getAccountMap() {
+		return accountMap;
+	}
+
+	public Account getAccount(String accountNumber) {
         return accountMap.get(accountNumber);
     }
 
@@ -70,9 +74,9 @@ public class Bank {
     	}
     	
     	if(interestPaid > feesCollected)
-    			return "Loss";
+    			return "Profit";
     	else if(interestPaid < feesCollected)
-    		return "Profit";
+    		return "Loss";
     	else
     		return "Neither Profit Nor Loss";
     }
